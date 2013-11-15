@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-	 @games = Game.where(:status_cd => Game.Active)
+    @games = Game.where(:status_cd => Game.Active)
     @pending = Game.where(:status_cd => Game.Pending)
     if current_user
       @hosted = Game.where(:host_id => current_user.player.id, :status_cd => [Game.Active, Game.Pending])
