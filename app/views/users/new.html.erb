@@ -1,4 +1,5 @@
-<%= form_for @user do |f| %>
+<h2 class="text-center">Sign Up</h2>
+<%= bootstrap_form_for @user do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
       <h2>Form is invalid</h2>
@@ -10,41 +11,35 @@
     </div>
   <% end %>
 
-<p>
-It is advisable to keep your username here the same as on the SA forums but is not required. Eventually avatars will be implemented.
-</p>
-
-<br />
-<p>
- *Note* Currently all registrations are manually approved. I require your SA Forum ID to verify goondom, and will activate you if you have posted in one of the Dom3 threads. Please provide your online order number to verify that you didn't pirate the game, or send a picture of you with the physical game to an admin (brainwrinkle at gmail).  If that doesn't work for you, we can figure something out. Hit us up on #dom4goons on synirc.  
-</p>
-
-  <div class="field">
-    <%= f.label :username %>
+  <div class="form-group">
     <%= f.text_field :username %>
+    <span class="help-block col-sm-9 col-sm-offset-3">Please keep your username here the same as on the SA forums (you don't have to, but please do).</span>
   </div>
-  <div class="field">
-    <%= f.label :email %>
+  <div class="form-group">
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :password %>
+  <div class="form-group">
     <%= f.password_field :password %>
   </div>
-  <div class="field">
-    <%= f.label :password_confirmation %>
+  <div class="form-group">
     <%= f.password_field :password_confirmation %>
   </div>
-  <div class="field">
-    <%= f.label 'SomethingAwful ID' %>
-    <%= f.text_field :sa_id %>
+  <div class="form-group">
+    <%= f.text_field :sa_id, :label => 'SomethingAwful ID' %>
+    <span class="help-block col-sm-9 col-sm-offset-3">Find this by going to the <a href="http://forums.somethingawful.com/index.php">main forums page</a>, clicking the your username in the top left directly under the ad, and reading what comes after &amp;userid= in the address bar.</span>
   </div>
-  <div class="field">
-    <%= f.label :matryx_link %>
+  <div class="form-group">
     <%= f.text_field :matryx_link %>
+    <span class="help-block col-sm-9 col-sm-offset-3">Leave blank if you didn't have an account on the old Matryx-hosted GGS.</span>
   </div>
-  <div class="field">
-    <%= recaptcha_tags %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Captcha</label>
+    <div class="col-sm-9">
+      <%= recaptcha_tags %>
+    </div>
   </div>
-  <div class="actions"><%= f.submit %></div>
+  <div class="col-sm-9 col-sm-offset-3">
+  <span class="help-block"><strong>Note:</strong> Currently all registrations are manually approved. I require your SA Forum ID to verify goondom, and will activate you if you have posted in one of the Dom4 threads. Please provide your online order number to verify that you didn't pirate the game, or send a picture of you with the physical game to an admin (brainwrinkle at gmail).  If that doesn't work for you, we can figure something out. Hit us up on #dom4goons on synirc.</span>
+    <%= f.submit %>
+  </div>
 <% end %>

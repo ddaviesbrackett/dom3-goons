@@ -1,50 +1,40 @@
-<div class="maindiv complement-5">
-    <h1>Goon Game Service: Dominions 3 &amp; 4 Edition</h1>
-    <% if current_user %>
-
-    <h2>Your Active Games</h2>
-    <%= render :partial => "active", :locals => { :data => @youractive } %>
-    <h2>Your Pending Games</h2>
-    <%= render :partial => "pending", :locals => { :data => @yourpending } %>
-    <h2>Your Hosted Games</h2>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Host</th>
-            <th>Era</th>
-            <th>Server</th>
-            <th>Port</th>
-            <th>Max Players</th>
-            <th>Status</th>
-          </tr>
-
-        <% @hosted.each do |game| %>
-          <tr>
-            <td><%= link_to game.name, game %></td>
-            <td><%= link_to game.player.user.username, :controller => "players", :action => "show", :id => game.host_id %></td>
-            <td><%= game.era %></td>
-            <td><%= game.server %></td>
-            <td><%= game.port %></td>
-            <td><%= game.max_players %></td>
-            <td><%= game.status %></td>
-          </tr>
-        <% end %>
-        </table>
-
+<h1>Goon Game Service: Dominions 3 &amp; 4 Edition</h1>
+<% if current_user %>
+  <%= render :partial => "active", :locals => { :data => @youractive, :title => "Your Active Games" } %>
+  <%= render :partial => "pending", :locals => { :data => @yourpending, :title => "Your Pending Games" } %>
+  <% if @hosted.any? %>
+    <h3>Your Hosted Games</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Host</th>
+          <th>Era</th>
+          <th>Server</th>
+          <th>Port</th>
+          <th>Max Players</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @hosted.each do |game| %>
+        <tr>
+          <td><%= link_to game.name, game %></td>
+          <td><%= link_to game.player.user.username, :controller => "players", :action => "show", :id => game.host_id %></td>
+          <td><%= game.era %></td>
+          <td><%= game.server %></td>
+          <td><%= game.port %></td>
+          <td><%= game.max_players %></td>
+          <td><%= game.status %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
     <% end %>
-</div>
-<br />
-<div class="maindiv complement-5">
-    <h2>Pending games</h2>
-    <%= render :partial => "pending", :locals => { :data => @pending } %>
+<% end %>
 
-    <br />
-
-    <h2>Active games</h2>
-
-    <%= render :partial => "active", :locals => { :data => @games } %>
-
-    <br />
-</div>
-
-
+<%= render :partial => "pending", :locals => { :data => @pending, :title => "Pending Games" } %>
+<%= render :partial => "active", :locals => { :data => @games, :title => "Active Games" } %>
+<% if !@pending.any? && !@games.any? %>
+  <p>The Goon Game Service isn't hosting any games right now.  When it is, they'll show up here!</p>
+<% end %>
