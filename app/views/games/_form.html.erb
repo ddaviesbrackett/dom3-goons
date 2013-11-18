@@ -1,4 +1,4 @@
-<%= form_for(@game) do |f| %>
+<%= bootstrap_form_for(@game) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
@@ -10,54 +10,43 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :name %> (required) <br />
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.text_field :name, {label:"Game Name (required)"} %>
   </div>
-  <div class="field">
-    <%= f.label :era %><br />
+  <div class="form-group">
     <%= select(:game, :era, Game.eras.keys) %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br />
+  <div class="form-group">
     <%= select(:game, :status, Game.statuses.keys) %>
   </div>
-  <div class="field">
-    <%= f.label :version %><br />
+  <div class="form-group">
     <%= select(:game, :version, Game.versions.keys) %>
   </div>
-  <div class="field">
-    <%= f.label :server %><br />
+  <div class="form-group">
     <%= f.text_field :server %>
   </div>
-  <div class="field">
-    <%= f.label :port %><br />
+  <div class="form-group">
     <%= f.number_field :port %>
   </div>
-  <div class="field">
-    <%= f.label :max_players %><br />
+  <div class="form-group">
     <%= f.number_field :max_players %>
   </div>
-  <div class="field">
-    <%= f.label :provinces %><br />
+  <div class="form-group">
     <%= f.number_field :provinces %>
-  <div class="field">
-    <%= f.label :map_preview %><br />
+  </div>
+  <div class="form-group">
     <%= f.text_field :map_preview %>
   </div>
-  <div class="field">
-    <%= f.label :map_download %><br />
+  <div class="form-group">
     <%= f.text_field :map_download %>
   </div>
-  <div class="field">
-    <%= f.label :message %> (required) <br />
-    <%= f.text_field :message %>
+  <div class="form-group">
+    <%= f.text_field :message, {label:"Message (required)"} %>
   </div>
-  <div class="field">
-    <%= f.label :requires_passwords %> <br />
+  <div class="form-group">
     <%= f.check_box :requires_passwords %>
   </div>
-  <div class="actions">
+  <div class="col-sm-9 col-sm-offset-3">
     <%= f.submit %>
   </div>
 <% end %>
