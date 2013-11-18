@@ -11,7 +11,21 @@
     </div>
   <% end %>
 
+
   <div class="form-group">
+
+<p>
+It is advisable to keep your username here the same as on the SA forums but is not required. Eventually avatars will be implemented.
+</p>
+
+<br />
+<p>
+ *Note* Currently all registrations are manually approved. Post in one of the Dominions SA threads to verify goondom, and include a link to your Desura profile to show you bought the game. If that doesn't work for you, we can figure something out. Hit us up on #dom4goons on synirc.  
+</p>
+
+  <div class="field">
+    <%= f.label :username %>
+
     <%= f.text_field :username %>
     <span class="help-block col-sm-9 col-sm-offset-3">Please keep your username here the same as on the SA forums (you don't have to, but please do).</span>
   </div>
@@ -28,9 +42,11 @@
     <%= f.text_field :sa_id, :label => 'SomethingAwful ID' %>
     <span class="help-block col-sm-9 col-sm-offset-3">Find this by going to the <a href="http://forums.somethingawful.com/index.php">main forums page</a>, clicking the your username in the top left directly under the ad, and reading what comes after &amp;userid= in the address bar.</span>
   </div>
+
   <div class="form-group">
-    <%= f.text_field :matryx_link %>
-    <span class="help-block col-sm-9 col-sm-offset-3">Leave blank if you didn't have an account on the old Matryx-hosted GGS.</span>
+  <div class="field">
+    <%= label_tag 'matryx_link', 'Desura Profile Link' %>
+  </div>
   </div>
   <div class="form-group">
     <label class="col-sm-3 control-label">Captcha</label>
@@ -40,6 +56,8 @@
   </div>
   <div class="col-sm-9 col-sm-offset-3">
   <span class="help-block"><strong>Note:</strong> Currently all registrations are manually approved. I require your SA Forum ID to verify goondom, and will activate you if you have posted in one of the Dom4 threads. Please provide your online order number to verify that you didn't pirate the game, or send a picture of you with the physical game to an admin (brainwrinkle at gmail).  If that doesn't work for you, we can figure something out. Hit us up on #dom4goons on synirc.</span>
-    <%= f.submit %>
   </div>
+</div>
+  <div class="actions"><%= f.submit %></div>
 <% end %>
+
