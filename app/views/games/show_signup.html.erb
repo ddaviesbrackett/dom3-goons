@@ -1,3 +1,4 @@
+<%- title @game.name.titlecase %>
 <p id="notice"><%= notice %></p>
 
 <%= render :partial => "gameinfo", :locals => { :data => @game } %>
@@ -17,45 +18,39 @@
   <p style="color:red;">
     <b><%= if @game.requires_passwords then 'Passwords are required' end %></b>
   </p>
-  <table>
+  <table class="signup">
     <tr>
       <% if @game.host_id == current_user.player.id || current_user.admin %>
-      <th>User</th>
+        <th class="user">User</th>
       <% end %>
-      <th>Nation</th>
-      <th>User</th>
-      <th>Password</th>
-      <th>Status</th>
-      <th>Claim Nation</th>
+      <th class="nation">Nation</th>
+      <th class="user">User</th>
+      <th class="password">Password</th>
+      <th class="status">Status</th>
+      <th class="claim"></th>
     </tr>
   <% @nationIDs.each do |nid| %>
     <% if @openNations.key?(nid) %>
       <% value = @openNations[nid] %>
       <% key = nid %>
       <tr>
-        <%= form_for @signup, :url => { :controller => :signups, :action => :create } do |f| %>
+        <%= bootstrap_form_for @signup, :url => { :controller => :signups, :action => :create } do |f| %>
         <%= f.hidden_field :player_id, { :value => current_user.player.id } %>
         <%= f.hidden_field :nation_id, { :value => key }  %>
         <%= f.hidden_field :game_id, { :value => @game.id } %>
         <% if @game.host_id == current_user.player.id || current_user.admin %>
-        <td>
-          <%= f.label :username %><br />
-          <%= f.text_field :username %>
-        </td>
+          <td>
+            <%= f.text_field :username , {no_label:true} %>
+          </td>
         <% end %>
         <td><%= value %></td>
-        <td>-</td>
+        <td></td>
         <td> 
-          <%= f.label :password %><br />
-          <%= f.text_field :password %>
+          <%= f.text_field :password, {no_label:true} %>
         </td>
+        <td></td>
         <td>
-          -
-        </td>
-        <td>
-          <div class="actions">
-            <%= f.submit %>
-          </div>
+          <%= f.submit :value => "Claim"  %>
         </td>
         
         <% end %>
@@ -63,7 +58,9 @@
     <% else %>
       <% signup = @signupsByNation[nid] %>
       <tr>
-        <td></td>
+        <% if @game.host_id == current_user.player.id || current_user.admin %>
+          <td></td>
+        <% end %>
         <td><%= if @nations.has_key?(nid) then @nations[nid] else nid end %></td>
         <td><%= link_to signup.player.user.username, :controller => "players", :action => "show", :id => signup.player_id %></td>
         <td> 
@@ -78,7 +75,7 @@
         </td>
         <td>
           <% if @game.host_id == current_user.player.id || current_user.admin || signup.player_id == current_user.player.id %>
-          <%= button_to 'Delete', { :controller => "signups", :action => "destroy", :id => signup.id} , :method => 'delete', :confirm => 'Are you sure?' %>
+          <%= button_to 'Delete', { :controller => "signups", :action => "destroy", :id => signup.id} , :method => 'delete', :data => {:confirm => 'Are you sure?'}, :class=> 'btn btn-danger' %>
           <% else %>
             Taken
           <% end %>
@@ -88,28 +85,27 @@
     <% end %>
   <% end %>
   <tr>
-        <%= form_for @signup, :url => { :controller => :signups, :action => :create } do |f| %>
+    <td colspan="6" style="padding-top:2em;">or sign up by nation ID (for mod games):</td>
+  </tr>
+  <tr>
+    <%= bootstrap_form_for @signup, :url => { :controller => :signups, :action => :create } do |f| %>
+      <td colspan="2">
+      
         <%= f.hidden_field :player_id, { :value => current_user.player.id } %>
         <%= f.hidden_field :game_id, { :value => @game.id } %>
-        <td><%= f.label :nation_id %><br />
-          <%= f.number_field :nation_id %></td>
-        <td>-</td>
-        <td> 
-          <%= f.label :password %><br />
-          <%= f.text_field :password %>
-        </td>
-        <td>
-          -
-        </td>
-        <td>
-          <div class="actions">
-            <%= f.submit %>
-          </div>
-        </td>
         
-        <% end %>
-    </tr>
-  </table>
+        <%= f.number_field :nation_id %>
+      </td>
+      <td colspan="2">
+        <%= f.text_field :password %>
+      </td>
+      <td colspan="2">
+        <%= f.submit :value => "claim"%>
+      </td>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
 
 
