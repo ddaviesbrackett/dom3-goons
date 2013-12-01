@@ -1,48 +1,34 @@
-<p>
-  <b>Name:</b>
+<h2>
   <%= data.name %>
-</p>
+</h2>
+<div class="row">
+  <div class="col-xs-12">
+    Administered by
+    <b><%= link_to data.player.user.username, :controller => "players", :action => "show", :id => data.host_id %></b>
+  </div>
+  <div class="col-xs-12">
+    <p><%= data.message %></p>
+  </div>
+  <div class="col-xs-12">
+    <b>Era:</b>
+    <%= data.era %> (<%= data.version %>)
+  </div>
+  <div class="col-xs-12">
+    <b>Max Players:</b>
+    <%= data.max_players %>
+  </div>
 
-<p>
-  <b>Host:</b>
-  <td><%= link_to data.player.user.username, :controller => "players", :action => "show", :id => data.host_id %></td>
-</p>
+  <div class="col-xs-12">
+    <b>Provinces:</b>
+    <%= data.provinces %>
+  </div>
 
-<p>
-  <b>Era:</b>
-  <%= data.era %>
-</p>
+  <div class="col-xs-12">
+    <b>Server and port:</b>
+    <%= data.server %>:<%= data.port %>
+  </div>
 
-<p>
-  <b>Game Version:</b>
-  <%= data.version %>
-</p>
-
-<p>
-  <b>Server:</b>
-  <%= data.server %>
-</p>
-
-<p>
-  <b>Port:</b>
-  <%= data.port %>
-</p>
-
-<p>
-  <b>Max Players:</b>
-  <%= data.max_players %>
-</p>
-
-<p>
-  <b>Provinces:</b>
-  <%= data.provinces %>
-</p>
-
-<p>
-  <b>Message from host:</b>
-  <%= data.message %>
-</p>
-
-<p>
-  <a href="<%= data.map_download %>">Map Download</a>
-</p>
+  <div class="col-xs-12">
+    <a href="<%= data.map_download %>">Download Map</a>
+  </div>
+</div>
